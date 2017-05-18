@@ -91,17 +91,29 @@ def hosts_delete():
 ##维护添加与删除
 @app.route('/zauto/maintenance')
 def zauto_maintenance():
-    return 'Hello World!'
+    msg = {
+        "msg":u"zabbix 维护，支持添加及删除维护",
+        "status_code":200
+    }
+    return jsonify(msg),200
 
 @app.route('/zauto/maintenance/add', methods=['POST'])
 @check()
 def maintenance_add():
-    return 'Hello World!'
+    msg = {
+        "msg":u"coding...",
+        "status_code":200
+    }
+    return jsonify(msg),200
 
 @app.route('/zauto/maintenance/delete', methods=['POST'])
 @check()
 def maintenance_delete():
-    return 'Hello World!'
+    msg = {
+        "msg":u"coding...",
+        "status_code":200
+    }
+    return jsonify(msg),200
 
 if __name__ == '__main__':
     app.run("0.0.0.0",5000)
