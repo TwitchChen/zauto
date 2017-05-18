@@ -2,7 +2,7 @@
 from flask import Flask,request
 from flask import jsonify
 from common.check_data import check
-from zbxmod import zbx_add_host,zbx_login,zbx_delete_host
+from zbxmod import zbx_add_host,zbx_login,zbx_delete_host,zbx_add_maintenance,zbx_delete_maintenance
 from common.config import Config
 
 app = Flask(__name__)
@@ -90,6 +90,7 @@ def hosts_delete():
 
 ##维护添加与删除
 @app.route('/zauto/maintenance')
+@check()
 def zauto_maintenance():
     msg = {
         "msg":u"zabbix 维护，支持添加及删除维护",
@@ -100,20 +101,52 @@ def zauto_maintenance():
 @app.route('/zauto/maintenance/add', methods=['POST'])
 @check()
 def maintenance_add():
-    msg = {
-        "msg":u"coding...",
-        "status_code":200
-    }
-    return jsonify(msg),200
+    user = conf.zbx_user
+    pwd = conf.zbj_pwd
+    data = eval(request.get_data())
+    data = data["payload"]
+    region = data['region']
+    ip = data['ip']
+    if region == 'cqzb':
+        url = conf.zbx_offline_server
+    else:
+        url = conf.zbx_online_server
+    zapi = zbx_login.login(url, user, pwd)
+    zadd = zbx_add_maintenance.zbx_add_main(zapi)
+    response = zadd.host_interface_get(ip)
+    if response:
+        hostid = response[0]['hostid']
+        print hostid
+        return zadd.add_maintenance(hostid)
+    else:
+        return jsonify({"msg":"host not exists", "status_code":500}),500
 
 @app.route('/zauto/maintenance/delete', methods=['POST'])
 @check()
 def maintenance_delete():
-    msg = {
-        "msg":u"coding...",
-        "status_code":200
-    }
-    return jsonify(msg),200
+    user = conf.zbx_user
+    pwd = conf.zbj_pwd
+    data = eval(request.get_data())
+    data = data["payload"]
+    region = data['region']
+    ip = data['ip']
+    if region == 'cqzb':
+        url = conf.zbx_offline_server
+    else:
+        url = conf.zbx_online_server
+    zapi = zbx_login.login(url, user, pwd)
+    zdelete = zbx_delete_maintenance.zbx_delete_main(zapi)
+    response = zdelete.host_interface_get(ip)
+    if response:
+        hostid = response[0]['hostid']
+        maintenanceid = zdelete.get_maintenance(hostid)
+        if maintenanceid:
+            maintenanceid = maintenanceid[0]['maintenanceid']
+            return zdelete.delete_maintenance(maintenanceid)
+        else:
+            return jsonify({"msg": "mantenance not exists", "status_code": 500}), 500
+    else:
+        return jsonify({"msg":"host not exists", "status_code":500}),500
 
 if __name__ == '__main__':
     app.run("0.0.0.0",5000)
