@@ -28,5 +28,5 @@ class Config():
     defaule_t = 'linux7 system base template'
 
     #hash
-    hash_key = '12345'
+    hash_key = '321654'
 

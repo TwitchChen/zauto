@@ -60,7 +60,7 @@ def hosts_add():
     zapi = zbx_login.login(url,user,pwd)
     zadd = zbx_add_host.zbx_add_hosts(zapi)
     if zadd.hostexist(ip,name):
-        return jsonify({"msg":"host or ip already in zabbix", "status_code":500}),500
+        return jsonify({"msg":"host:%s or ip:%s already in zabbix"%(name,ip), "status_code":422}),422
     group_id_list, template_id_list = zadd.group_template_id(group, template_name)
     info, code = zadd.zabbix_add_host(name, ip, people_name, template_id_list,group_id_list)
     return jsonify({"msg":info,"status_code":code}),code
@@ -86,7 +86,7 @@ def hosts_delete():
         zdelete.host_delete(hostid)
         return jsonify({"msg":"delete host success", "status_code":200}),200
     else:
-        return jsonify({"msg":"host does not exists", "status_code":200}),200
+        return jsonify({"msg":"host does not exists", "status_code":404}),404
 
 ##维护添加与删除
 @app.route('/zauto/maintenance')
@@ -116,10 +116,9 @@ def maintenance_add():
     response = zadd.host_interface_get(ip)
     if response:
         hostid = response[0]['hostid']
-        print hostid
         return zadd.add_maintenance(hostid)
     else:
-        return jsonify({"msg":"host not exists", "status_code":500}),500
+        return jsonify({"msg":"host not exists", "status_code":404}),404
 
 @app.route('/zauto/maintenance/delete', methods=['POST'])
 @check()
@@ -144,9 +143,9 @@ def maintenance_delete():
             maintenanceid = maintenanceid[0]['maintenanceid']
             return zdelete.delete_maintenance(maintenanceid)
         else:
-            return jsonify({"msg": "mantenance not exists", "status_code": 500}), 500
+            return jsonify({"msg": "mantenance not exists", "status_code": 404}), 404
     else:
-        return jsonify({"msg":"host not exists", "status_code":500}),500
+        return jsonify({"msg":"host not exists", "status_code":404}),404
 
 if __name__ == '__main__':
     app.run("0.0.0.0",5000)

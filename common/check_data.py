@@ -17,15 +17,13 @@ def check():
         def wrapper(*args, **kwargs):
             sha_val = request.headers.get('X-Hub-Signature')
             body = request.get_data()
-            #print body
             key = conf.hash_key
             r = hmac.new(key, body, sha1).digest()
             local_sha_val = 'sha1=' + (base64.b16encode(r)).lower()
-            print local_sha_val
             if sha_val == local_sha_val:
                 return func(*args, **kwargs)
             else:
-                return jsonify({'message': 'authentication failed'}),400
+                return jsonify({'msg': 'authentication failed', 'status_code':400}),400
         return wrapper
     return decorator
 

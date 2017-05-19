@@ -41,4 +41,4 @@ class zbx_del_hosts:
                 self.host_delete(hostid[i])
             return jsonify({"msg":"delete hosts success", "status_code":200}),200
         else:
-            return jsonify({"msg": "host does not exists", "status_code": 200}), 200
+            return jsonify({"msg": "host does not exists", "status_code": 404}), 404

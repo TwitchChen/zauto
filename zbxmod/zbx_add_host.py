@@ -9,7 +9,7 @@
 class zbx_add_hosts:
     def __init__(self,zapi):
         self.zapi = zapi
-    
+
     def group_exist(self,groupname):
         info = self.zapi.hostgroup.get(
             output="extend",
@@ -18,9 +18,9 @@ class zbx_add_hosts:
         if info:
             result = True
         else:
-            result = False 
+            result = False
         return result
-    
+
     def group_create(self,groupname):
         result = self.zapi.hostgroup.create(
             name = "%s"%(groupname)
@@ -55,7 +55,7 @@ class zbx_add_hosts:
         )
         templateid = tempalte_info[0]['templateid']
         return templateid
-    
+
     def template_exist(self,templatename):
         info = self.zapi.template.get(
             output="extend",
@@ -66,7 +66,7 @@ class zbx_add_hosts:
         else:
             result = False
         return result
-    
+
     def get_template_name(self,ops_name):
         template_name = ops_name + " " + "system base template"
         return template_name
@@ -75,16 +75,15 @@ class zbx_add_hosts:
         group_id_list = []
         template_id = None
         try:
-            for i in range(len(pro_name)):
-                if self.group_exist(pro_name[i]):
-                    group_id = self.get_groupid(pro_name[i])
-                else :
-                    group_id = self.group_create(pro_name[i])
-                group_id_list.append({"groupid":group_id})
-         #   print group_id_list  
+            if self.group_exist(pro_name):
+                group_id = self.get_groupid(pro_name)
+            else :
+                group_id = self.group_create(pro_name)
+            group_id_list.append({"groupid":group_id})
+            #   print group_id_list
         except IndexError:
             print('indexerror,please check product name list!')
-            
+
         try:
             template_id = self.get_templateid(template_name)
         except IndexError:
@@ -108,27 +107,27 @@ class zbx_add_hosts:
     def zabbix_add_host(self,hostname,interface,dev_name,templateid,groupid):
         if self.hostexist(interface,hostname) == False :
             response = self.zapi.host.create(
-            {
-                "host": hostname,
-                "groups": groupid,
-                "templates": templateid, 
-                "interfaces": [
                 {
-                    "type": 1,
-                    "main": 1,
-                    "useip": 1,
-                    "ip": interface,
-                    "dns": "",
-                    "port": "10050"
-                }
-                ],
-                "macros": [
-                {
-                    "macro": "{$DEVOPS}",
-                    "value": dev_name
-                }
-                ]
-            })
+                    "host": hostname,
+                    "groups": groupid,
+                    "templates": templateid,
+                    "interfaces": [
+                        {
+                            "type": 1,
+                            "main": 1,
+                            "useip": 1,
+                            "ip": interface,
+                            "dns": "",
+                            "port": "10050"
+                        }
+                    ],
+                    "macros": [
+                        {
+                            "macro": "{$DEVOPS}",
+                            "value": dev_name
+                        }
+                    ]
+                })
             if response['hostids'] :
                 return 'create host success!',200
             else :
