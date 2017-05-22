@@ -34,6 +34,9 @@ def hosts_add():
     people_name = u"蹇尚翀/陈浩"
     data = eval(request.get_data())
     data = data["payload"]
+    person = data["person"]
+    if person:
+        return jsonify({"msg":"person hosts can not add to zabbix", "status_code": 400}), 400
     region = data['region']
     ip = data['ip']
     name = data['name']
