@@ -50,15 +50,15 @@ def hosts_add():
         template_name = 'linux7 system base template'
     elif region == 'bjyz':
         url = conf.zbx_online_server
-        group = 'bjzw'
+        group = 'bjyz'
         template_name = 'linux7 system base template'
     elif region == 'tjhy':
         url = conf.zbx_online_server
-        group = 'tjhy'
+        group = 'tjhy-pref-zbj'
         template_name = 'tjhy linux template for pref'
     else:
         url = conf.zbx_online_server
-        group = 'bjzw'
+        group = 'Discovered hosts'
         template_name = 'linux7 system base template'
     zapi = zbx_login.login(url,user,pwd)
     zadd = zbx_add_host.zbx_add_hosts(zapi)
