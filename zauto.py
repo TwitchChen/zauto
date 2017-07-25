@@ -53,9 +53,9 @@ def hosts_add():
         group = 'bjyz'
         template_name = 'linux7 system base template'
     elif region == 'tjhy':
-        url = conf.zbx_online_server
-        group = 'tjhy-pref-zbj'
-        template_name = 'tjhy linux template for pref'
+        url = conf.zbx_perf_server
+        group = 'tjhy'
+        template_name = 'linux7 system base template'
     else:
         url = conf.zbx_online_server
         group = 'Discovered hosts'
@@ -79,6 +79,8 @@ def hosts_delete():
     ip = data['ip']
     if region == 'cqzb':
         url = conf.zbx_offline_server
+    elif region == 'tjhy':
+        url = conf.zbx_perf_server
     else:
         url = conf.zbx_online_server
     zapi = zbx_login.login(url,user,pwd)
@@ -112,6 +114,8 @@ def maintenance_add():
     ip = data['ip']
     if region == 'cqzb':
         url = conf.zbx_offline_server
+    elif region == 'tjhy':
+        url = conf.zbx_perf_server
     else:
         url = conf.zbx_online_server
     zapi = zbx_login.login(url, user, pwd)
@@ -134,6 +138,8 @@ def maintenance_delete():
     ip = data['ip']
     if region == 'cqzb':
         url = conf.zbx_offline_server
+    elif region == 'tjhy':
+        url = conf.zbx_perf_server
     else:
         url = conf.zbx_online_server
     zapi = zbx_login.login(url, user, pwd)

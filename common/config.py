@@ -9,6 +9,7 @@
 class Config():
     #zbx server
     zbx_online_server = 'http://172.26.4.36'
+    zbx_perf_server = 'http://172.26.4.36'
     zbx_offline_server = 'http://172.26.4.36'
     zbx_user = 'chenfan'
     zbj_pwd = '123456'
