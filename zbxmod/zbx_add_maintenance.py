@@ -21,7 +21,7 @@ class zbx_add_main:
 
     def add_maintenance(self,hostid):
         active_time = int(time.time())
-        util_time = active_time + 172800  # 默认一次性维护2天
+        util_time = active_time + 864000  # 默认一次性维护10天
         mname = 'cmdb' + str(active_time)
         response = self.zapi.maintenance.create(
             {
@@ -32,7 +32,7 @@ class zbx_add_main:
                 "timeperiods": [
                     {
                         "timeperiod_type": 0,
-                        "period": 172800
+                        "period": 864000
                     }
                 ],
             })
