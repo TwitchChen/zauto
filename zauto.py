@@ -4,12 +4,13 @@ from flask import jsonify
 from common.check_data import check
 from zbxmod import zbx_add_host,zbx_login,zbx_delete_host,zbx_add_maintenance,zbx_delete_maintenance
 from common.config import Config
+import json
 
 app = Flask(__name__)
 conf = Config()
 ##zauto说明
-@app.route('/',methods=['POST'])
-@app.route('/zauto',methods=['POST'])
+@app.route('/')
+@app.route('/zauto')
 def zauto():
     msg = {
         "msg":u"zabbix auto api",
@@ -31,34 +32,38 @@ def zauto_hosts():
 def hosts_add():
     user = conf.zbx_user
     pwd = conf.zbj_pwd
-    people_name = u"蹇尚翀/陈浩"
-    data = eval(request.get_data())
+    people_name = u"陈浩"
+    data = json.loads(request.get_data())
     data = data["payload"]
     person = data["person"]
     if person:
         return jsonify({"msg":"person hosts can not add to zabbix", "status_code": 400}), 400
-    region = data['region']
+    region_name = data['region_name']
     ip = data['ip']
     name = data['name']
-    if region == 'cqzb':
+    if region_name == 'cqzb':
         url = conf.zbx_offline_server
         group = 'cqzb'
         template_name = 'linux7 system base template'
-    elif region == 'bjzw':
+    elif region_name == 'bjzw':
         url = conf.zbx_online_server
         group = 'bjzw'
         template_name = 'linux7 system base template'
-    elif region == 'bjyz':
+    elif region_name == 'bjyz':
         url = conf.zbx_online_server
         group = 'bjyz'
         template_name = 'linux7 system base template'
-    elif region == 'tjhy':
+    elif region_name == 'tjhy':
         url = conf.zbx_perf_server
         group = 'tjhy'
         template_name = 'linux7 system base template'
+    elif region_name == 'hwhn':
+        url = conf.zbx_hwhn_server
+        group = 'hwhn'
+        template_name = 'linux7 system base template'
     else:
         url = conf.zbx_online_server
-        group = 'Discovered hosts'
+        group = 'bjzw'
         template_name = 'linux7 system base template'
     zapi = zbx_login.login(url,user,pwd)
     zadd = zbx_add_host.zbx_add_hosts(zapi)
@@ -73,14 +78,16 @@ def hosts_add():
 def hosts_delete():
     user = conf.zbx_user
     pwd = conf.zbj_pwd
-    data = eval(request.get_data())
+    data = json.loads(request.get_data())
     data = data["payload"]
-    region = data['region']
+    region_name = data['region_name']
     ip = data['ip']
-    if region == 'cqzb':
+    if region_name == 'cqzb':
         url = conf.zbx_offline_server
-    elif region == 'tjhy':
-        url = conf.zbx_perf_server
+    elif region_name == 'tjhy':
+	url = conf.zbx_perf_server
+    elif region_name == 'hwhn':
+        url = conf.zbx_hwhn_server
     else:
         url = conf.zbx_online_server
     zapi = zbx_login.login(url,user,pwd)
@@ -108,14 +115,16 @@ def zauto_maintenance():
 def maintenance_add():
     user = conf.zbx_user
     pwd = conf.zbj_pwd
-    data = eval(request.get_data())
+    data = json.loads(request.get_data())
     data = data["payload"]
-    region = data['region']
+    region_name = data['region_name']
     ip = data['ip']
-    if region == 'cqzb':
+    if region_name == 'cqzb':
         url = conf.zbx_offline_server
-    elif region == 'tjhy':
-        url = conf.zbx_perf_server
+    elif region_name == 'tjhy':
+	url = conf.zbx_perf_server
+    elif region_name == 'hwhn':
+        url = conf.zbx_hwhn_server
     else:
         url = conf.zbx_online_server
     zapi = zbx_login.login(url, user, pwd)
@@ -132,14 +141,16 @@ def maintenance_add():
 def maintenance_delete():
     user = conf.zbx_user
     pwd = conf.zbj_pwd
-    data = eval(request.get_data())
+    data = json.loads(request.get_data())
     data = data["payload"]
-    region = data['region']
+    region_name = data['region_name']
     ip = data['ip']
-    if region == 'cqzb':
+    if region_name == 'cqzb':
         url = conf.zbx_offline_server
-    elif region == 'tjhy':
-        url = conf.zbx_perf_server
+    elif region_name == 'tjhy':
+	url = conf.zbx_perf_server
+    elif region_name == 'hwhn':
+        url = conf.zbx_hwhn_server
     else:
         url = conf.zbx_online_server
     zapi = zbx_login.login(url, user, pwd)
@@ -157,4 +168,4 @@ def maintenance_delete():
         return jsonify({"msg":"host not exists", "status_code":404}),404
 
 if __name__ == '__main__':
-    app.run("0.0.0.0",5000)
+    app.run()
