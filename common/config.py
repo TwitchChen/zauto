@@ -12,22 +12,22 @@ class Config():
     zbx_perf_server = 'http://172.26.4.36'
     zbx_offline_server = 'http://172.26.4.36'
     zbx_user = 'chenfan'
-    zbj_pwd = '123456'
+    zbx_pwd = '****'
 
     #group
-    bjzw_g = 'bjzw'
-    bjyz_g = 'bjyz'
-    tjhy_g = 'tjhy-pref-zbj'
-    cq_g = 'cqzb'
+    bjzw_g = 'prod'
+    bjyz_g = 'stage'
+    tjhy_g = 'pref'
+    cq_g = 'test'
     defaule_g = 'Discovered hosts'
 
     #temple
-    bjzw_t = 'bjzw'
-    bjyz_t = 'bjyz'
-    tjhy_t = 'tjhy-pref-zbj'
-    cq_t = 'cqzb'
+    bjzw_t = 'prod'
+    bjyz_t = 'stage'
+    tjhy_t = 'pref'
+    cq_t = 'test'
     defaule_t = 'linux7 system base template'
 
     #hash
-    hash_key = '321654'
+    hash_key = '*****'
 

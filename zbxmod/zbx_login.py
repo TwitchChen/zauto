@@ -24,10 +24,7 @@ if __name__ == "__main__":
             output="extend",
             filter={'host': hostname}
         )
-        print ip_response
-        print name_response
         if ip_response and name_response:
             return True
         else:
             return False
-    print hostexist("172.26.4.93","test-4.45")

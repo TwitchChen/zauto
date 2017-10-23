@@ -31,8 +31,8 @@ def zauto_hosts():
 @check()
 def hosts_add():
     user = conf.zbx_user
-    pwd = conf.zbj_pwd
-    people_name = u"陈浩"
+    pwd = conf.zbx_pwd
+    people_name = u"opuser"
     data = json.loads(request.get_data())
     data = data["payload"]
     person = data["person"]
@@ -41,29 +41,25 @@ def hosts_add():
     region_name = data['region_name']
     ip = data['ip']
     name = data['name']
-    if region_name == 'cqzb':
+    if region_name == 'test':
         url = conf.zbx_offline_server
-        group = 'cqzb'
+        group = 'test'
         template_name = 'linux7 system base template'
-    elif region_name == 'bjzw':
+    elif region_name == 'prod':
         url = conf.zbx_online_server
-        group = 'bjzw'
+        group = 'prod'
         template_name = 'linux7 system base template'
-    elif region_name == 'bjyz':
+    elif region_name == 'stage':
         url = conf.zbx_online_server
-        group = 'bjyz'
+        group = 'stage'
         template_name = 'linux7 system base template'
-    elif region_name == 'tjhy':
+    elif region_name == 'perf':
         url = conf.zbx_perf_server
-        group = 'tjhy'
-        template_name = 'linux7 system base template'
-    elif region_name == 'hwhn':
-        url = conf.zbx_hwhn_server
-        group = 'hwhn'
+        group = 'perf'
         template_name = 'linux7 system base template'
     else:
         url = conf.zbx_online_server
-        group = 'bjzw'
+        group = 'prod'
         template_name = 'linux7 system base template'
     zapi = zbx_login.login(url,user,pwd)
     zadd = zbx_add_host.zbx_add_hosts(zapi)
@@ -77,17 +73,15 @@ def hosts_add():
 @check()
 def hosts_delete():
     user = conf.zbx_user
-    pwd = conf.zbj_pwd
+    pwd = conf.zbx_pwd
     data = json.loads(request.get_data())
     data = data["payload"]
     region_name = data['region_name']
     ip = data['ip']
-    if region_name == 'cqzb':
+    if region_name == 'test':
         url = conf.zbx_offline_server
-    elif region_name == 'tjhy':
-	url = conf.zbx_perf_server
-    elif region_name == 'hwhn':
-        url = conf.zbx_hwhn_server
+    elif region_name == 'perf':
+        url = conf.zbx_perf_server
     else:
         url = conf.zbx_online_server
     zapi = zbx_login.login(url,user,pwd)
@@ -114,17 +108,15 @@ def zauto_maintenance():
 @check()
 def maintenance_add():
     user = conf.zbx_user
-    pwd = conf.zbj_pwd
+    pwd = conf.zbx_pwd
     data = json.loads(request.get_data())
     data = data["payload"]
     region_name = data['region_name']
     ip = data['ip']
-    if region_name == 'cqzb':
+    if region_name == 'test':
         url = conf.zbx_offline_server
-    elif region_name == 'tjhy':
-	url = conf.zbx_perf_server
-    elif region_name == 'hwhn':
-        url = conf.zbx_hwhn_server
+    elif region_name == 'perf':
+        url = conf.zbx_perf_server
     else:
         url = conf.zbx_online_server
     zapi = zbx_login.login(url, user, pwd)
@@ -140,17 +132,15 @@ def maintenance_add():
 @check()
 def maintenance_delete():
     user = conf.zbx_user
-    pwd = conf.zbj_pwd
+    pwd = conf.zbx_pwd
     data = json.loads(request.get_data())
     data = data["payload"]
     region_name = data['region_name']
     ip = data['ip']
-    if region_name == 'cqzb':
+    if region_name == 'test':
         url = conf.zbx_offline_server
-    elif region_name == 'tjhy':
-	url = conf.zbx_perf_server
-    elif region_name == 'hwhn':
-        url = conf.zbx_hwhn_server
+    elif region_name == 'perf':
+        url = conf.zbx_perf_server
     else:
         url = conf.zbx_online_server
     zapi = zbx_login.login(url, user, pwd)

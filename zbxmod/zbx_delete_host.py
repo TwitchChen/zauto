@@ -34,7 +34,6 @@ class zbx_del_hosts:
     def hostdelete(self, interface):
         response = self.host_interface_get(interface)
         hostid = []
-        print response
         if response:
             for i in range(len(response)):
                 hostid.append(response[i]['hostid'])
