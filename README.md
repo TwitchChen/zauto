@@ -1,19 +1,28 @@
-### Ò»¡¢ÏµÍ³¶¨Òå
-Zabbix Auto Api£º¿ª·¢²¢·â×°Zabbix Api£¬ÌáÉýzabbix¼à¿ØµÄ×Ô¶¯»¯ÄÜÁ¦£¬ÌáÉýÔËÎ¬ÈËÔ±µÄÐ§ÂÊ£¬¿ÉÒÔ½«¸ü¶àµÄÊ±¼äÓÃÓÚ×Ô¶¯»¯¹¤¾ß¿ª·¢ÉÏÀ´¡£
-### ¶þ¡¢Ö÷Òª¹¦ÄÜ
-·â×°zabbix apiÎªË½ÓÐÔÆºÍCMDBÌá¹©¼à¿Ø´´½¨¡¢É¾³ý¡¢·Ö×é¡¢Î¬»¤¡¢ÔðÈÎÈË¡¢×Ô¶¯ÆÁÄ»µÈ¹¦ÄÜµÄRESTFUL½Ó¿Ú¡£
-### Èý¡¢´úÂë½á¹¹
-©¸©¤©¤ zauto
-©À©¤©¤ common  Í¨ÓÃÄ£¿é
-     ©À©¤©¤ check_data.py    ´«²ÎÑéÖ¤
-     ©À©¤©¤ config.py©¦  ÅäÖÃ£¨url¡¢ÕË»§µÈÅäÖÃ£©
-     ©¸©¤©¤ __init__.py
-©À©¤©¤ zauto.log
-©À©¤©¤ zauto.py  Â·ÓÉ¼°Æô¶¯
-©¸©¤©¤ zbxmod   zabbix¹¦ÄÜÄ£¿é
-      ©À©¤©¤ __init__.py
-      ©À©¤©¤ zbx_add_host.py
-      ©À©¤©¤ zbx_add_maintenance.py
-      ©À©¤©¤ zbx_delete_host.py
-      ©À©¤©¤ zbx_delete_maintenance.py
-      ©¸©¤©¤ zbx_login.py
+### ä¸€ã€ç³»ç»Ÿå®šä¹‰
+
+Zabbix Auto Apiï¼šå¼€å‘å¹¶å°è£…Zabbix Apiï¼Œæå‡zabbixç›‘æŽ§çš„è‡ªåŠ¨åŒ–èƒ½åŠ›ï¼Œæå‡è¿ç»´äººå‘˜çš„æ•ˆçŽ‡ï¼Œå¯ä»¥å°†æ›´å¤šçš„æ—¶é—´ç”¨äºŽè‡ªåŠ¨åŒ–å·¥å…·å¼€å‘ä¸Šæ¥ã€‚
+
+### äºŒã€ä¸»è¦åŠŸèƒ½
+
+å°è£…zabbix apiä¸ºç§æœ‰äº‘å’ŒCMDBæä¾›ç›‘æŽ§åˆ›å»ºã€åˆ é™¤ã€åˆ†ç»„ã€ç»´æŠ¤ã€è´£ä»»äººã€è‡ªåŠ¨å±å¹•ç­‰åŠŸèƒ½çš„RESTFULæŽ¥å£ã€‚
+
+### ä¸‰ã€ä»£ç ç»“æž„
+
+```
+â””â”€â”€ zauto
+	â”œâ”€â”€ common é€šç”¨æ¨¡å—
+    	â”œâ”€â”€ check_data.py ä¼ å‚éªŒè¯
+        â”œâ”€â”€ config.pyâ”‚ é…ç½®ï¼ˆurlã€è´¦æˆ·ç­‰é…ç½®ï¼‰
+        â””â”€â”€ init.py
+    â”œâ”€â”€ zauto.py è·¯ç”±åŠå¯åŠ¨
+    â””â”€â”€ zbxmod zabbixåŠŸèƒ½æ¨¡å—
+    	â”œâ”€â”€ init.py
+        â”œâ”€â”€ zbx_add_host.py
+        â”œâ”€â”€ zbx_add_maintenance.py
+        â”œâ”€â”€ zbx_delete_host.py
+        â”œâ”€â”€ zbx_delete_maintenance.py
+        â””â”€â”€ zbx_login.py
+```
+
+
+
